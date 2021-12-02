@@ -1,0 +1,11 @@
+SECTION .text
+
+GLOBAL SYSTEM_EXIT
+SYSTEM_EXIT:
+    MOV     RAX, SYS_EXIT_ADDR
+    MOV     RDI, 0x0        ;Exit code
+    SYSCALL
+
+SECTION .data
+
+SYS_EXIT_ADDR   EQU 0x2000001

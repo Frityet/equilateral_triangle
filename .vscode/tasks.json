@@ -1,0 +1,25 @@
+{
+    "tasks": [
+        {
+            "label": "build",
+            "type": "shell",
+            "command": "lua build.lua"
+        },
+        {
+            "label": "asm64",
+            "type": "shell",
+            "command": "rawfilename=${fileDirname}/${fileBasenameNoExtension}; nasm -g -F dwarf -f macho64 -i ${fileDirname} -o $rawfilename.o ${file}; ld -static -o $rawfilename $rawfilename.o;",
+            "problemMatcher": {
+                    "pattern": {
+                        "regexp": "error"
+                    }
+                },
+            "presentation": {
+                "focus": true,
+                "panel": "dedicated",
+                "reveal": "silent",
+                "clear": true
+            }
+        },
+    ]
+}
