@@ -1,0 +1,40 @@
+; EXTERN  TRIANGLE_size
+EXTERN  SYSTEM_PRINT
+EXTERN  SYSTEM_EXIT
+EXTERN  INITIALISE_TRIANGLE
+EXTERN  CHECK_TRIANGLE
+EXTERN  GET_X_TEST
+
+[SECTION .bss]
+
+TRIANGLE_1  resb 0x6    ; TRIANGLE_size
+
+[SECTION .text]
+
+GLOBAL start
+start:
+    LEA     RDI, [REL TRIANGLE_1]
+    CALL    INITIALISE_TRIANGLE
+    CALL    GET_X_TEST
+    UD2
+
+    MOV     RBX, TRIANGLE_1
+    CALL    CHECK_TRIANGLE
+
+    CMP     RAX, 0x1
+    JE      start.EQUAL
+
+    MOV     RBX, UNEQUAL_MSG
+    CALL    SYSTEM_PRINT
+    JMP     SYSTEM_EXIT
+
+    start.EQUAL:
+        MOV     RBX, MSG
+        CALL    SYSTEM_PRINT
+
+    JMP     SYSTEM_EXIT
+    
+SECTION .data
+MSG             DB  "Hello, World!", 0xA, 0x0
+EQUAL_MSG       DB  "Equal!", 0xA, 0x0
+UNEQUAL_MSG     DB  "Unequal!", 0xA, 0x0

@@ -6,9 +6,8 @@ FAST_STRLEN:
     MOV     RDI, RBX ; Move function arguments
 
     PUSH    RCX
-    ; Initialise ECX to the max 32 bit number
     XOR     ECX, ECX
-    NOT     ECX         ; overflow
+    NOT     ECX         ; Initialise ECX to the max 32 bit number or -1
 
     ; Go through the string and find the null byte
     ; This instruction goes through the EDI regiser (where our string is stored)
@@ -34,7 +33,7 @@ SYSTEM_PRINT:
     MOV     RDX, RAX                ; Load the length for the syscall
     MOV     RAX, SYS_WRITE_ADDR     ; Load the address of the syscall
     MOV     RDI, 0x1                ; STDOUT
-    ; UD2
+    ;UD2
     SYSCALL
     RET
 
